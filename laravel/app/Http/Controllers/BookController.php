@@ -9,7 +9,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class BooksController extends Controller
+class BookController extends Controller
 {
     public function index(){
         //$books = Book::all();

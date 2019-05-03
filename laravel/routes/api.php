@@ -17,19 +17,19 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('books', 'BooksController@index');
-Route::get('book/{isbn}', 'BooksController@findByISBN');
-Route::get('book/checkisbn/{isbn}', 'BooksController@checkISBN');
-Route::get('books/search/{searchTerm}', 'BooksController@findBySearchTerm');
-//Route::post('book', 'BooksController@save');
-//Route::put('book/{isbn}', 'BooksController@update');
-//Route::delete('book/{isbn}', 'BooksController@delete');
+Route::get('books', 'BookController@index');
+Route::get('book/{isbn}', 'BookController@findByISBN');
+Route::get('book/checkisbn/{isbn}', 'BookController@checkISBN');
+Route::get('books/search/{searchTerm}', 'BookController@findBySearchTerm');
+//Route::post('book', 'BookController@save');
+//Route::put('book/{isbn}', 'BookController@update');
+//Route::delete('book/{isbn}', 'BookController@delete');
 
 Route::post('auth/login', 'Auth\ApiAuthController@login');
 
 Route::group(['middleware' => ['api','cors','jwt.auth']], function () {
-    Route::post('book', 'BooksController@save');
-    Route::put('book/{isbn}', 'BooksController@update');
-    Route::delete('book/{isbn}', 'BooksController@delete');
+    Route::post('book', 'BookController@save');
+    Route::put('book/{isbn}', 'BookController@update');
+    Route::delete('book/{isbn}', 'BookController@delete');
     Route::post('auth/logout', 'Auth\ApiAuthController@logout');
 });
