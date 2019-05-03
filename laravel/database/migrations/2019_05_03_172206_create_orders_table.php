@@ -14,8 +14,20 @@ class CreateOrdersTable extends Migration
     public function up()
     {
         Schema::create('orders', function (Blueprint $table) {
+
             $table->increments('id');
+            $table->date('order_date')->default(date("Y-m-d H:i:s"));
+            $table->integer('total')->unsigned();
+            $table->integer('vat')->unsigned();
+
+            $table->integer('user_id')->unsigned();
+            // create constraint in DB
+            $table->foreign('user_id')
+                ->references('id')->on('users')
+                ->onDelete('cascade');
+
             $table->timestamps();
+
         });
     }
 

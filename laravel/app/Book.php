@@ -44,4 +44,12 @@ class Book extends Model
     {
         return $this->belongsToMany(Author::class)->withTimestamps();
     }
+
+    /**
+     * book belongs to many orders (m:n)
+     */
+    public function orders() :  BelongsToMany
+    {
+        return $this->belongsToMany(Order::class)->withTimestamps();
+    }
 }

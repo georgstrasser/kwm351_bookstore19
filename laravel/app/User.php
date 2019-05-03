@@ -38,6 +38,15 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(Book::class);
     }
 
+    /**
+     * user has many orders (1:n)
+     * @return HasMany
+     */
+    public function orders() : HasMany
+    {
+        return $this->hasMany(Order::class);
+    }
+
     /* ---- auth JWT ---- */
     /**
      * @return mixed
