@@ -19,7 +19,6 @@ class OrderController extends Controller
         return response()->json($orders, 200);
     }
 
-
     public function findByOrderID($orderID) : JsonResponse {
         $order = Order::where('id', $orderID)
             ->with(['states', 'books'])

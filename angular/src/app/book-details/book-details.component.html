@@ -26,6 +26,9 @@
         <h4 class="ui header">Rating</h4>
         <i *ngFor="let r of getRating(book.rating)" class="yellow star icon"></i>
       </div>
+      <div class="four wide column">
+        <h4 class="ui header">Price</h4><b>{{ book.price }} EUR</b>
+      </div>
     </div>
   </div>
   <div class="sixteen wide column">
