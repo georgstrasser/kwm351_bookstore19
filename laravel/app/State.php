@@ -11,7 +11,7 @@ class State extends Model
 {
     protected $fillable = ['state', 'comment'];
 
-    public function orders() :  BelongsTo
+    public function order() :  BelongsTo
     {
         return $this->belongsTo(Order::class);
     }

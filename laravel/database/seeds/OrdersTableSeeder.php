@@ -21,11 +21,8 @@ class OrdersTableSeeder extends Seeder
         $order1->user()->associate($user);
         $order1->save();
 
-        $book1 = App\Book::where('id', 2)->pluck("id");
+        $book1 = App\Book::all()->pluck("id");
         $order1->books()->sync($book1);
-        $order1->save();
-        $book2 = App\Book::where('id', 3)->pluck("id");
-        $order1->books()->sync($book2);
         $order1->save();
 
         $state1 = new \App\State;
@@ -33,6 +30,11 @@ class OrdersTableSeeder extends Seeder
         $state1->comment = "Bestellung aufgegeben";
         $state1->order()->associate($order1);
         $state1->save();
+        $state2 = new \App\State;
+        $state2->state = "Bezahlt";
+        $state2->comment = "via Kreditkarte";
+        $state2->order()->associate($order1);
+        $state2->save();
 
     }
 }

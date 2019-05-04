@@ -51,7 +51,7 @@ class BooksTableSeeder extends Seeder
         $book2->user()->associate($user);
         $book2->save();
         // test authors - load them and write them to the db using eloquent ORM
-        $authors = App\Author::where("id", 3)->pluck("id");
+        $authors = App\Author::all()->last();
         $book2->authors()->sync($authors);
         $book2->save();
         // add images to book
@@ -73,7 +73,7 @@ class BooksTableSeeder extends Seeder
         $book3->user()->associate($user);
         $book3->save();
         // test authors - load them and write them to the db using eloquent ORM
-        $authors = App\Author::where("id", 1)->pluck("id");
+        $authors = App\Author::all()->first();
         $book3->authors()->sync($authors);
         $book3->save();
         // add images to book
