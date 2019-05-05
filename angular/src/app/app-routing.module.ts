@@ -6,6 +6,7 @@ import {BookDetailsComponent} from './book-details/book-details.component';
 import {BookFormComponent} from './book-form/book-form.component';
 import {LoginComponent} from './login/login.component';
 import {AdminOrderListComponent} from "./admin-order-list/admin-order-list.component";
+import {UserOrderListComponent} from "./user-order-list/user-order-list.component";
 
 const routes: Routes = [
   {path:'',redirectTo: 'home', pathMatch:'full'},
@@ -13,6 +14,7 @@ const routes: Routes = [
   {path:'books',component: BookListComponent},
   {path:'books/:isbn',component: BookDetailsComponent},
   {path:'orders',component: AdminOrderListComponent},
+  {path:'orders/user/:user_id',component: UserOrderListComponent},
   {path:'admin',component: BookFormComponent},
   {path:'admin/:isbn',component: BookFormComponent},
   {path:'login',component: LoginComponent}

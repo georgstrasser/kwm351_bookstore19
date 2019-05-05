@@ -54,7 +54,10 @@ export class BookFormComponent implements OnInit {
       ]],
       //authors: this.authors,
       images: this.images,
-      published: new Date(this.book.published)
+      published: new Date(this.book.published),
+      price: [this.book.price, [
+        Validators.min(0)
+      ]]
     });
 
     console.log(new Date(this.book.published));
@@ -106,8 +109,6 @@ export class BookFormComponent implements OnInit {
         this.router.navigate(['../../books', book.isbn], { relativeTo: this.route });
       });
     } else {
-      book.user_id = 1;// just for testing
-      console.log(book)
       this.bs.create(book).subscribe(res => {
         //this.book = BookFactory.empty();
         //this.bookForm.reset(BookFactory.empty());

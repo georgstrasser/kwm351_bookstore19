@@ -15,14 +15,14 @@ class OrdersTableSeeder extends Seeder
         $order1 = new \App\Order;
         $order1->order_date = new DateTime();
         $order1->vat = 10;
-        $order1->total = 20;
+        $order1->total = (19.50 + 12 + 14)*1.1;
 
-        $user = App\User::all()->first();
-        $order1->user()->associate($user);
+        $user1 = App\User::all()->first();
+        $order1->user()->associate($user1);
         $order1->save();
 
-        $book1 = App\Book::all()->pluck("id");
-        $order1->books()->sync($book1);
+        $books = App\Book::all()->pluck("id");
+        $order1->books()->sync($books);
         $order1->save();
 
         $state1 = new \App\State;
@@ -36,5 +36,55 @@ class OrdersTableSeeder extends Seeder
         $state2->order()->associate($order1);
         $state2->save();
 
+
+
+        $order2 = new \App\Order;
+        $order2->order_date = new DateTime();
+        $order2->vat = 10;
+        $order2->total = (19.50*1.1);
+
+        $user2 = App\User::all()->last();
+        $order2->user()->associate($user2);
+        $order2->save();
+
+        $book2 = App\Book::all()->first();
+        $order2->books()->sync($book2);
+        $order2->save();
+
+        $state3 = new \App\State;
+        $state3->state = "Offen";
+        $state3->comment = "Bestellung eingegangen";
+        $state3->order()->associate($order2);
+        $state3->save();
+
+
+
+        $order3 = new \App\Order;
+        $order3->order_date = new DateTime();
+        $order3->vat = 10;
+        $order3->total = (12*1.1);
+
+        $user3 = App\User::all()->last();
+        $order3->user()->associate($user3);
+        $order3->save();
+
+        $book3 = App\Book::all()->last();
+        $order3->books()->sync($book3);
+        $order3->save();
+
+        $state4 = new \App\State;
+        $state4->state = "Offen";
+        $state4->comment = "Bestellung eingegangen";
+        $state4->order()->associate($order3);
+        $state4->save();
+        $state5 = new \App\State;
+        $state5->state = "Bezahlt";
+        $state5->order()->associate($order3);
+        $state5->save();
+        $state6 = new \App\State;
+        $state6->state = "Versendet";
+        $state6->comment = "am 29.04.2019";
+        $state6->order()->associate($order3);
+        $state6->save();
     }
 }

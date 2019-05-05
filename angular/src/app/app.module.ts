@@ -18,6 +18,7 @@ import {AuthService} from './shared/authentication.service';
 import {TokenInterceptorService} from './shared/token-interceptor.service';
 import {JwtInterceptorService} from './shared/jwt-interceptor.service';
 import { AdminOrderListComponent } from './admin-order-list/admin-order-list.component';
+import { UserOrderListComponent } from './user-order-list/user-order-list.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { AdminOrderListComponent } from './admin-order-list/admin-order-list.com
     BookFormComponent,
     SearchComponent,
     LoginComponent,
-    AdminOrderListComponent
+    AdminOrderListComponent,
+    UserOrderListComponent
   ],
   imports: [
     BrowserModule, AppRoutingModule, HttpClientModule,

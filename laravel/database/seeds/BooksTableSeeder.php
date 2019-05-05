@@ -18,7 +18,7 @@ class BooksTableSeeder extends Seeder
         $book1->rating = 10;
         $book1->description = "Erster Teil der Trilogie";
         $book1->published = new DateTime();
-        $book1->price = 19;
+        $book1->price = 19.499;
         //get the first user
         $user = App\User::all()->first();
         $book1->user()->associate($user);

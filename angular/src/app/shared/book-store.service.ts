@@ -39,6 +39,8 @@ export class BookStoreService {
   }
 
   update(book:Book):Observable<any> {
+    console.log("fucking observable");
+    console.log(book);
     return this.http.put(`${this.api}/book/${book.isbn}`,book).
     pipe(retry(3)).pipe(catchError(this.errorHandler));
   }

@@ -17,7 +17,7 @@ class CreateOrdersTable extends Migration
 
             $table->increments('id');
             $table->date('order_date')->default(date("Y-m-d H:i:s"));
-            $table->integer('total')->unsigned();
+            $table->double('total',9,2)->default(0.00);
             $table->integer('vat')->unsigned();
 
             $table->integer('user_id')->unsigned();

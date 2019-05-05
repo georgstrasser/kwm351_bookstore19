@@ -11,15 +11,17 @@ export class AdminOrderListComponent implements OnInit {
 
     orders : Order[];
     constructor(
-        private os: OrderService
+        private os: OrderService,
     ) { }
 
     ngOnInit() {
+
         this.os.getAll().subscribe(
             res => {
                 this.orders = res;
                 console.log(this.orders);
-            });
+        });
+
     }
 
 }

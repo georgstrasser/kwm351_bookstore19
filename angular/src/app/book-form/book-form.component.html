@@ -30,6 +30,11 @@
     <div *ngIf="errors.rating" class="ui negative message">{{ errors.rating }}</div>
   </div>
   <div class="field">
+    <label>Price</label>
+    <input type="number" formControlName="price">
+    <div *ngIf="errors.price" class="ui negative message">{{ errors.price }}</div>
+  </div>
+  <div class="field">
     <label>Bilder</label>
     <div formArrayName="images">
       <div class="fields" *ngFor="let control of images?.controls; index as i; last as l" [formGroupName]="i">

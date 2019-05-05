@@ -1,0 +1,13 @@
+<div class="ui middle aligned selection divided list">
+  <h2>Ihre Bestellungen</h2>
+  <div class="item" *ngFor="let order of orders" >
+    <div>
+      ID: {{ order.id }}
+    </div>
+    <div *ngFor="let book of order.books">
+      <div>
+        Book: {{ book.title }}
+      </div>
+    </div>
+  </div>
+</div>

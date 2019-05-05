@@ -15,7 +15,7 @@ class Book extends Model
      */
     // define all properties that should be writable
     protected $fillable = ['isbn', 'title', 'subtitle', 'published', 'rating',
-        'description', 'user_id'];
+        'description', 'user_id', 'price'];
 
     public function scopeFavourite($query){
         return $query->where('rating','>=',8);

@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Order;
 use App\Book;
-use App\Image;
-use App\Author;
+use App\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -23,6 +22,13 @@ class OrderController extends Controller
         $order = Order::where('id', $orderID)
             ->with(['states', 'books'])
             ->first();
+        return response()->json($order, 200);
+    }
+
+    public function findOrdersByUserID($userID) : JsonResponse {
+        $order = Order::where('user_id', $userID)
+            ->with(['states', 'books'])
+            ->get();
         return response()->json($order, 200);
     }
 
