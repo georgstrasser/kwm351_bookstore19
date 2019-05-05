@@ -1,4 +1,4 @@
-<div *ngIf="!isLoggedIn()">
+<div class="ui container" *ngIf="!isLoggedIn()">
   <h1>Login</h1>
   <form  class="ui large form" [formGroup]="loginForm" (ngSubmit)="login()">
     <div class="field">
@@ -24,6 +24,37 @@
     <button type="submit" class="ui button" [disabled]="loginForm.invalid">Login</button>
   </form>
 </div>
-<div *ngIf="isLoggedIn()">
+<div class="ui container" *ngIf="isLoggedIn()">
+  <h2>Willkommen {{currentUser.firstName}} {{currentUser.lastName}}!</h2>
+  <h3>Das sind Ihre Daten:</h3>
+  <table class="ui celled table">
+    <tbody>
+      <tr>
+        <td>Username:</td>
+        <td>{{ currentUser.name }}</td>
+      </tr>
+      <tr>
+        <td>E-Mail:</td>
+        <td>{{ currentUser.email }}</td>
+      </tr>
+      <tr>
+        <td>Vorname:</td>
+        <td>{{ currentUser.firstName }}</td>
+      </tr>
+      <tr>
+        <td>Nachname:</td>
+        <td>{{ currentUser.lastName }}</td>
+      </tr>
+      <tr>
+        <td>Adresse:</td>
+        <td>{{ currentUser.address }}</td>
+      </tr>
+      <tr>
+        <td>Ihre ID im System:</td>
+        <td>{{currentUser.id}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2 *ngIf="authService.isAdminUser()">Sie sind als Admin eingeloggt!</h2>
   <button type="button" class="ui button" (click)="logout()">Logout</button>
 </div>

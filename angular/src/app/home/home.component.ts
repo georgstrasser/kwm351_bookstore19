@@ -22,7 +22,7 @@ export class HomeComponent {
   constructor(private router:Router, private route: ActivatedRoute){}
 
   bookSelected(book:Book){
-    this.router.navigate(['../books',book.isbn],
+    this.router.navigate(['../books/',book.isbn],
       {relativeTo:this.route});
   }
 }

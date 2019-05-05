@@ -22,9 +22,12 @@ export class AdminOrderListComponent implements OnInit {
                 this.orders = res;
                 for(let i=0; i<this.orders.length; i++){
                     for(let j=0; j<this.orders[i].positions.length; j++){
+                        //creating a default book
+                        this.orders[i].positions[j].book = new Book(0,'','',[],new Date,0,0);
                         this.os.getBookByID(this.orders[i].positions[j].book_id).subscribe(res => {
                             this.orders[i].positions[j].book = res;
                         });
+
                     }
                 }
                 console.log(this.orders);

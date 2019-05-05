@@ -1,13 +1,72 @@
-<div class="ui middle aligned selection divided list">
+<div class="ui container">
   <h2>Ihre Bestellungen</h2>
-  <div class="item" *ngFor="let order of orders" >
-    <div>
-      ID: {{ order.id }}
-    </div>
-    <div *ngFor="let position of order.positions">
-      <div *ngFor="let book of position.book">
-        Book: {{ book.title }}
-      </div>
+  <br/>
+  <div class="ui">
+    <br/>
+    <div class="ui celled table" *ngFor="let order of orders" >
+      <table>
+        <thead>
+        <tr>
+          <th class="">Bestellnummer: {{ order?.id }}</th>
+          <th class="">Benutzer-ID: {{ order?.user_id }}</th>
+          <th class="">Bestelldatum: {{ order?.order_date }}</th>
+        </tr>
+        </thead>
+      </table>
+      <table class="ui celled table">
+        <thead>
+        <tr>
+          <th>ISBN</th>
+          <th>Titel</th>
+          <th>Menge</th>
+          <th>Preis</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let position of order?.positions">
+          <td data-label="ISBN">{{ position?.book.isbn }}</td>
+          <td data-label="Titel">{{ position?.book.title }}</td>
+          <td data-label="Menge">{{ position?.quantity }} STK</td>
+          <td class="right aligned" data-label="Preis">{{ position?.price }} EUR</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td class="right aligned" >Summe:</td>
+          <td class="right aligned" >{{ order?.total*100/(100+order?.vat) }} EUR</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td class="right aligned" >{{ order?.vat }}% Steuer:</td>
+          <td class="right aligned" >{{ order?.total*order?.vat/(100+order?.vat) }} EUR</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td class="right aligned"><b>Gesamtsumme:</b></td>
+          <td class="right aligned"><b>{{ order?.total }} EUR</b></td>
+        </tr>
+        </tbody>
+      </table>
+      <table class="ui celled table">
+        <thead>
+        <tr>
+          <th>Status</th>
+          <th>Datum</th>
+          <th>Kommentar</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let state of order?.states">
+          <td>{{ state?.state }}</td>
+          <td>{{ state?.state_date }}</td>
+          <td>{{ state.comment }}</td>
+        </tr>
+        </tbody>
+      </table>
+
     </div>
   </div>
+
 </div>

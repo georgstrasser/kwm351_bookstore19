@@ -52,7 +52,6 @@ class BookController extends Controller
             ->where('title', 'LIKE', '%' . $searchTerm. '%')
             ->orWhere('subtitle' , 'LIKE', '%' . $searchTerm. '%')
             ->orWhere('description' , 'LIKE', '%' . $searchTerm. '%')
-
             /* search term in authors name */
             ->orWhereHas('authors', function($query) use ($searchTerm) {
                 $query->where('firstName', 'LIKE', '%' . $searchTerm. '%')

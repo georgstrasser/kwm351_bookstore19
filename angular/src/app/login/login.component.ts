@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AuthService} from "../shared/authentication.service";
+import {OrderService} from "../shared/order.service";
+import {User} from "../shared/user";
 
 
 interface Response {
@@ -17,16 +19,27 @@ interface Response {
 })
 export class LoginComponent implements OnInit {
 
+  currentUser: User = new User(0,'','','','','',false);
   loginForm: FormGroup;
 
   constructor(private fb: FormBuilder, private router: Router,
-              private authService: AuthService ) { }
+              private authService: AuthService, private os:OrderService) { }
 
   ngOnInit() {
     this.loginForm = this.fb.group({
       username: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
     });
+
+    if(this.isLoggedIn()){
+      this.os.getUserByID(this.authService.getCurrentUserId()).subscribe(
+          res => {
+            this.currentUser = res;
+            console.log(res);
+          }
+      )
+    }
+
   }
 
   login() {

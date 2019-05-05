@@ -21,10 +21,10 @@ Route::get('books', 'BookController@index');
 Route::get('book/{isbn}', 'BookController@findByISBN');
 Route::get('book/id/{id}', 'BookController@findBookByID');
 Route::get('book/checkisbn/{isbn}', 'BookController@checkISBN');
-Route::get('books/search/{searchTerm}', 'BookController@findBySearchTerm');
-//Route::post('book', 'BookController@save');
-//Route::put('book/{isbn}', 'BookController@update');
-//Route::delete('book/{isbn}', 'BookController@delete');
+Route::get('book/search/{searchTerm}', 'BookController@findBySearchTerm');
+
+Route::get('users', 'UserController@index');
+Route::get('user/id/{id}', 'UserController@findUserById');
 
 Route::post('auth/login', 'Auth\ApiAuthController@login');
 

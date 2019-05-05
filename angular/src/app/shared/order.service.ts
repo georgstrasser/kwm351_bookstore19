@@ -24,8 +24,13 @@ export class OrderService {
         return this.http.get(`${this.api}/user/${user}`).pipe(retry(3)).pipe(catchError(this.errorHandler));
     }
 
-    getBookByID(id): Book{
+    getBookByID(id): Observable<Book>{
         return this.http.get(`${this.api}/book/id/${id}`).
+        pipe(retry(3)).pipe(catchError(this.errorHandler));
+    }
+
+    getUserByID(id): Observable<User>{
+        return this.http.get(`${this.api}/user/id/${id}`).
         pipe(retry(3)).pipe(catchError(this.errorHandler));
     }
 
