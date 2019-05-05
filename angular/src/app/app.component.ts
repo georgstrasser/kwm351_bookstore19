@@ -18,6 +18,14 @@ export class AppComponent {
     return this.authService.isLoggedIn();
   }
 
+  isAdminUser(){
+    return this.authService.isAdminUser();
+  }
+
+  getCurrentUser(){
+    return this.authService.getCurrentUserId();
+  }
+
   getLoginLabel(){
     if (this.isLoggedIn()){
       return "Logout"

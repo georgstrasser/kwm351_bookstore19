@@ -7,6 +7,7 @@ import {BookFactory} from "../shared/book-factory";
 import {BookStoreService} from "../shared/book-store.service";
 import {Book, Image} from "../shared/book";
 import {BookValidators} from '../shared/book-validators';
+import {AuthService} from "../shared/authentication.service";
 
 @Component({
   selector: 'bs-book-form',
@@ -20,7 +21,8 @@ export class BookFormComponent implements OnInit {
   images: FormArray;
 
   constructor(private fb: FormBuilder, private bs: BookStoreService,
-              private route: ActivatedRoute, private router: Router) { }
+              private route: ActivatedRoute, private router: Router,
+              private auth: AuthService) { }
 
   ngOnInit() {
     const isbn = this.route.snapshot.params['isbn'];
@@ -80,7 +82,6 @@ export class BookFormComponent implements OnInit {
         })
       ),BookValidators.atLeastOneImage
     );
-    console.log(this.images);
   }
 
   addThumbnailControl() {
@@ -99,7 +100,6 @@ export class BookFormComponent implements OnInit {
     const book: Book = BookFactory.fromObject(this.bookForm.value);
 //deep copy  - did not work without??
     book.images = this.bookForm.value.images;
-    console.log(book);
 
     //just copy the authors
     book.authors = this.book.authors;
@@ -109,6 +109,7 @@ export class BookFormComponent implements OnInit {
         this.router.navigate(['../../books', book.isbn], { relativeTo: this.route });
       });
     } else {
+      book.user_id = this.auth.getCurrentUserId();
       this.bs.create(book).subscribe(res => {
         //this.book = BookFactory.empty();
         //this.bookForm.reset(BookFactory.empty());

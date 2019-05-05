@@ -14,7 +14,7 @@ const routes: Routes = [
   {path:'books',component: BookListComponent},
   {path:'books/:isbn',component: BookDetailsComponent},
   {path:'orders',component: AdminOrderListComponent},
-  {path:'orders/user/:user_id',component: UserOrderListComponent},
+  {path:'user/:user_id',component: UserOrderListComponent},
   {path:'admin',component: BookFormComponent},
   {path:'admin/:isbn',component: BookFormComponent},
   {path:'login',component: LoginComponent}

@@ -47,17 +47,26 @@ export class AuthService {
     console.log(decodedToken.user.id);
     localStorage.setItem('token', token);
     localStorage.setItem('userId', decodedToken.user.id);
+    localStorage.setItem('isAdmin', decodedToken.user.isAdmin);
   }
 
   logout() {
     this.http.post(`${this.api}/logout`, {});
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
+    localStorage.removeItem("isAdmin");
     console.log("logged out");
   }
 
   public isLoggedIn() {
     return !isNullOrUndefined(localStorage.getItem("token"));
+  }
+
+  public isAdminUser(){
+    if(this.isLoggedIn()){
+      return Number.parseInt(localStorage.getItem('isAdmin'));
+    }
+    return false;
   }
 
   isLoggedOut() {

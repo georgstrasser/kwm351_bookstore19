@@ -29,7 +29,7 @@ Route::post('auth/login', 'Auth\ApiAuthController@login');
 
 Route::get('orders', 'OrderController@index');
 Route::get('order/{id}', 'OrderController@findByOrderID');
-Route::get('orders/user/{id}', 'OrderController@findOrdersByUserID');
+Route::get('user/{id}', 'OrderController@findOrdersByUserID');
 
 Route::group(['middleware' => ['api','cors','jwt.auth']], function () {
     Route::post('book', 'BookController@save');
