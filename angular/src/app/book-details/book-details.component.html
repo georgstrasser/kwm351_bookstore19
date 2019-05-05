@@ -8,25 +8,25 @@
     <h3 class="ui header">{{ book?.subtitle }}</h3>
     <div class="ui divider"></div>
     <div class="ui grid">
-      <div class="four wide column">
+      <div class="five wide column">
         <h4 class="ui header">Autoren</h4>
         <span *ngFor="let author of book.authors; last as l">
          {{ author.firstName }} {{ author.lastName }}<span *ngIf="!l">, </span>
        </span>
       </div>
-      <div class="four wide column">
+      <div class="five wide column">
         <h4 class="ui header">ISBN</h4>
         {{ book.isbn }}
       </div>
-      <div class="four wide column">
+      <div class="five wide column">
         <h4 class="ui header">Erschienen</h4>
         {{ book?.published }}
       </div>
-      <div class="four wide column">
+      <div class="five wide column">
         <h4 class="ui header">Bewertung</h4>
         <i *ngFor="let r of getRating(book.rating)" class="yellow star icon"></i>
       </div>
-      <div class="four wide column">
+      <div class="five wide column">
         <h4 class="ui header">Preis</h4><b>{{ book.price }} EUR</b>
       </div>
     </div>
@@ -41,17 +41,38 @@
     </div>
   </div>
 </div>
+<!--
+<h3>Warenkorb</h3>
+<form  class="ui large form" [formGroup]="cartForm" (ngSubmit)="submitForm()">
+  <input type="hidden" name="id">
+  <div class="field">
+    <label>Menge</label>
+    <input type="number" formControlName="quantity">
+    <div *ngIf="errors.price" class="ui negative message">{{ errors.price }}</div>
+  </div>
+  <button type="submit" class="ui green button" [disabled]="cartForm.invalid">Zum Warenkorb hinzufügen</button>
+</form>
+-->
 
 <button [routerLink]="'/books'" class="ui red button">
   Zurück zur Bücherliste
 </button>
 
-<button *ngIf="authService.isLoggedIn()" class="ui tiny red labeled icon button"
-  (click)="removeBook()">
+<!--
+<br/><br/><br/>
+<input type="number" formControlName="quantity">
+<button type="submit" class="ui green button">
+  Zum Warenkorb Hinzufügen
+</button>
+<br/><br/><br/>
+-->
+
+<button *ngIf="authService.isAdminUser()" class="ui tiny red labeled icon button"
+        (click)="removeBook()">
   <i class="remove icon"></i> Buch löschen
 </button>
 
-<a *ngIf="authService.isLoggedIn()" class="ui tiny yellow labeled icon button"
+<a *ngIf="authService.isAdminUser()" class="ui tiny yellow labeled icon button"
    [routerLink]="['../../admin',book?.isbn]">
   <i class="write icon"></i>
   Buch bearbeiten</a>
