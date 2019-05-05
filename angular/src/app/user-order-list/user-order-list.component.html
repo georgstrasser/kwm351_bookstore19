@@ -4,8 +4,8 @@
     <div>
       ID: {{ order.id }}
     </div>
-    <div *ngFor="let book of order.books">
-      <div>
+    <div *ngFor="let position of order.positions">
+      <div *ngFor="let book of position.book">
         Book: {{ book.title }}
       </div>
     </div>

@@ -2,16 +2,17 @@
   <h2>Die Bestellungen aller User</h2>
   <div class="item" *ngFor="let order of orders" >
     <div>
-      ID: {{ order.id }}
-      User: {{ order.user_id }}
+      ID: {{ order?.id }}
+      User: {{ order?.user_id }}
     </div>
-    <div *ngFor="let book of order.books">
+    <div *ngFor="let position of order?.positions">
         <div>
-            Book: {{ book.title }}
+            Book: {{ position?.book.title }}
         </div>
         <div>
-            Price {{ book.price }}
+            Price {{ position?.book.price }}
         </div>
+        Menge: {{ position?.quantity }}
     </div>
     <div>Sum: {{ order.total*100/(100+order.vat) }}</div>
     <div>Vat: {{ order.vat }}</div>

@@ -33,6 +33,16 @@ class BookController extends Controller
     }
 
     /**
+     * find book by given ISBN number
+     */
+    public function findBookByID($id) : Book {
+        $book = Book::where('id', $id)
+            ->with(['authors', 'images', 'user'])
+            ->first();
+        return $book;
+    }
+
+    /**
      * find book by search term
      * SQL injection is prevented by default, because Eloquent
      * uses PDO parameter binding

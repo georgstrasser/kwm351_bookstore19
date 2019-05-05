@@ -30,6 +30,7 @@ export class UserOrderListComponent implements OnInit {
                 this.orders = res;
                 console.log(this.orders);
         });
+
     }
 
 }

@@ -5,6 +5,7 @@ import {State} from './state';
 import {HttpClient} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs/index';
 import {catchError, retry} from 'rxjs/internal/operators';
+import {Book} from "./book";
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,11 @@ export class OrderService {
 
     getUserOrders(user): Observable<Array<Order>> {
         return this.http.get(`${this.api}/user/${user}`).pipe(retry(3)).pipe(catchError(this.errorHandler));
+    }
+
+    getBookByID(id): Book{
+        return this.http.get(`${this.api}/book/id/${id}`).
+        pipe(retry(3)).pipe(catchError(this.errorHandler));
     }
 
     private errorHandler(error: Error | any): Observable<any> {
