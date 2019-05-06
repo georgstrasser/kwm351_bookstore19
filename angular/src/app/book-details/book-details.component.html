@@ -55,26 +55,24 @@
   </form>
   -->
 
-  <button [routerLink]="'/books'" class="ui red button">
+  <button [routerLink]="'/books'" class="ui tiny red labeled icon button">
     Zurück zur Bücherliste
+    <i class="backward icon"></i>
   </button>
 
-  <!--
-  <br/><br/><br/>
-  <input type="number" formControlName="quantity">
-  <button type="submit" class="ui green button">
-    Zum Warenkorb Hinzufügen
-  </button>
-  <br/><br/><br/>
-  -->
+  <a class="ui tiny blue labeled icon button" routerLink="/cart" (click)="addBookToCart();">
+    Zum Warenkorb hinzufügen
+    <i class="cart icon"></i>
+  </a>
+
+  <a *ngIf="authService.isAdminUser()" class="ui tiny yellow labeled icon button"
+     [routerLink]="['../../admin',book?.isbn]">
+    <i class="write icon"></i>
+    Buch bearbeiten</a>
 
   <button *ngIf="authService.isAdminUser()" class="ui tiny red labeled icon button"
           (click)="removeBook()">
     <i class="remove icon"></i> Buch löschen
   </button>
 
-  <a *ngIf="authService.isAdminUser()" class="ui tiny yellow labeled icon button"
-     [routerLink]="['../../admin',book?.isbn]">
-    <i class="write icon"></i>
-    Buch bearbeiten</a>
 </div>

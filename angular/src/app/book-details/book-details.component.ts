@@ -4,6 +4,8 @@ import {BookStoreService} from '../shared/book-store.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {BookFactory} from '../shared/book-factory';
 import {AuthService} from '../shared/authentication.service';
+import {CartService} from "../shared/cart.service";
+import {FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'bs-book-details',
@@ -11,13 +13,15 @@ import {AuthService} from '../shared/authentication.service';
   styles: []
 })
 export class BookDetailsComponent implements OnInit {
+  addToCartForm: FormGroup;
   book: Book = BookFactory.empty();
 
   constructor(
     private bs : BookStoreService,
     private route: ActivatedRoute,
     private router: Router,
-    public authService: AuthService
+    private authService: AuthService,
+    private cs: CartService
   ) { }
 
   ngOnInit() {
@@ -40,4 +44,9 @@ export class BookDetailsComponent implements OnInit {
       )
     }
   }
+
+  addBookToCart(){
+    this.cs.add(this.book);
+  }
+
 }
