@@ -47,8 +47,8 @@ export class CartComponent implements OnInit {
     buyBooks(){
         if(confirm("Wollen Sie diese Bücher kaufen? Der Warenkorb wird entleert.")){
             const userId = this.authService.getCurrentUserId();
+            this.clearStorage();
         }
-        this.clearStorage();
     }
 
     deleteBookFromCart(isbn){
