@@ -56,7 +56,7 @@ export class CartComponent implements OnInit {
         this.cs.syncWithJSON();
         this.books = this.cs.books;
         this.total = {
-            "net": this.cs.sum,
+            "sum": this.cs.sum,
             "vat": this.cs.vat,
             "vatAmount": this.cs.vatAmount,
             "gross": this.cs.gross

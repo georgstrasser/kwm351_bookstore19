@@ -45,7 +45,7 @@ export class CartService {
         this.vatAmount = this.sum*this.vat/100;
         this.vatAmount = parseFloat(this.vatAmount.toFixed(2));
         this.gross = this.sum + this.vatAmount;
-        return of({net: this.sum, vat: this.vat, vatAmount: this.vatAmount, gross: this.gross});
+        return of({sum: this.sum, vat: this.vat, vatAmount: this.vatAmount, gross: this.gross});
     }
 
     clearStorage() {
