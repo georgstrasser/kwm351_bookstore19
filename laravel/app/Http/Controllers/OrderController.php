@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Order;
 use App\Book;
-use App\Position;
 use App\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -13,22 +12,22 @@ use Illuminate\Support\Facades\DB;
 class OrderController extends Controller
 {
     public function index(){
-        $orders = Order::with(['states', 'positions'])
-            ->get();
 
+        $orders = Order::with(['states', 'books'])
+            ->get();
         return response()->json($orders, 200);
     }
 
     public function findByOrderID($orderID) : JsonResponse {
         $order = Order::where('id', $orderID)
-            ->with(['states', 'positions'])
+            ->with(['states', 'books'])
             ->first();
         return response()->json($order, 200);
     }
 
     public function findOrdersByUserID($userID) : JsonResponse {
         $order = Order::where('user_id', $userID)
-            ->with(['states', 'positions'])
+            ->with(['states', 'books'])
             ->get();
         return response()->json($order, 200);
     }
@@ -47,16 +46,14 @@ class OrderController extends Controller
                     $order->states()->save($state);
                 }
             }
-            if(isset($request['positions']) && is_array($request['positions'])) {
-                foreach ($request['positions'] as $p){
-                    $position = Position::where('id', $p['id'])->first();
-                    $order->positions()->save($position);
-                    $book = Book::where('id', $position['book_id'])->first();
-                    $position->book()->save($book);
+            if(isset($request['books']) && is_array($request['books'])) {
+                foreach ($request['books'] as $b){
+                    $book = Book::where('isbn', $b['isbn'])->first();
+                    $order->books()->save($book);
                 }
             }
             DB::commit();
-            $returnableOrder = $order->with(['states', 'positions'])->where('id', $order['id'])->first();
+            $returnableOrder = $order->with(['states', 'books'])->where('id', $order['id'])->first();
             return response()->json($returnableOrder, 201);
         }
         catch(\Exception $e){

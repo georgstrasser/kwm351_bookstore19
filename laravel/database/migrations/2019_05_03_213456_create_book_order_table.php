@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePositionsTable extends Migration
+class CreateBookOrderTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,17 @@ class CreatePositionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('positions', function (Blueprint $table) {
+        Schema::create('book_order', function (Blueprint $table) {
 
-            $table->increments('id');
-
-            $table->integer('book_id')->unsigned();
-            $table->foreign('book_id')->references('id')
-                ->on('books')->onDelete('cascade');
-
-            $table->integer('order_id')->unsigned();
+            $table->integer('order_id')->unsigned()->index();
             $table->foreign('order_id')->references('id')
                 ->on('orders')->onDelete('cascade');
 
+            $table->integer('book_id')->unsigned()->index();
+            $table->foreign('book_id')->references('id')
+                ->on('books')->onDelete('cascade');
+
+            $table->primary(['order_id','book_id']);
             $table->integer('quantity')->nullable();
             $table->integer('price')->nullable();
 
@@ -39,6 +38,6 @@ class CreatePositionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('positions');
+        Schema::dropIfExists('book_order');
     }
 }

@@ -16,9 +16,9 @@ class Order extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function positions() :  HasMany
+    public function books() :  BelongsToMany
     {
-        return $this->hasMany(Position::class);
+        return $this->belongsToMany(Book::class)->withPivot('quantity')->withPivot('price')->withTimestamps();
     }
 
     public function states() : HasMany

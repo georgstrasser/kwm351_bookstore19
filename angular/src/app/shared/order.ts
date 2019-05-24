@@ -1,6 +1,5 @@
 import {State} from './state';
-import {Position} from './position';
-export {Position} from './position';
+import {Book} from "./book";
 
 export class Order {
     public id: number;
@@ -8,6 +7,6 @@ export class Order {
     public total: number;
     public vat: number;
     public user_id: number;
-    public positions: Position[];
+    public books: Book[];
     public states: State[];
 }
