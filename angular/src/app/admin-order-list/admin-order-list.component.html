@@ -23,11 +23,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let position of order?.positions">
-                        <td data-label="ISBN">{{ position?.book.isbn }}</td>
-                        <td data-label="Titel">{{ position?.book.title }}</td>
+                    <tr *ngFor="let book of order?.books">
+                        <td data-label="ISBN">{{ book.isbn }}</td>
+                        <td data-label="Titel">{{ book.title }}</td>
+                        <!-- todo -->
+                        <!--
                         <td data-label="Menge">{{ position?.quantity }} STK</td>
                         <td class="right aligned" data-label="Preis">{{ position?.price }} EUR</td>
+                        -->
                     </tr>
                     <tr>
                         <td></td>
