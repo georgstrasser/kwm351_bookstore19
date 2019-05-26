@@ -19,6 +19,7 @@ export class BookFormComponent implements OnInit {
   errors: { [key: string]: string } = {};
   isUpdatingBook = false;
   images: FormArray;
+  authors: FormArray;
 
   constructor(private fb: FormBuilder, private bs: BookStoreService,
               private route: ActivatedRoute, private router: Router,
@@ -38,6 +39,7 @@ export class BookFormComponent implements OnInit {
 
   initBook() {
     this.buildThumbnailsArray();
+    this.buildAuthorsArray();
 
     this.bookForm = this.fb.group({
       id: this.book.id,
@@ -53,11 +55,11 @@ export class BookFormComponent implements OnInit {
         Validators.min(0),
         Validators.max(10)
       ]],
-      //authors: this.authors,
+      authors: this.authors,
       images: this.images,
       published: new Date(this.book.published),
       price: [this.book.price, [
-        Validators.min(0)
+        Validators.min(1)
       ]]
     });
 
@@ -83,25 +85,48 @@ export class BookFormComponent implements OnInit {
     );
   }
 
+  buildAuthorsArray() {
+      console.log(this.book.authors);
+
+      this.authors = this.fb.array(
+          this.book.authors.map(
+              t => this.fb.group({
+                  id: this.fb.control(t.id),
+                  firstName: this.fb.control(t.firstName),
+                  lastName: this.fb.control(t.lastName)
+              })
+          ),BookValidators.atLeastOneAuthor
+      );
+  }
+
+
   addThumbnailControl() {
     this.images.push(this.fb.group({ url: null, title: null }));
   }
-
   removeThumbnailControl(index){
     this.images.removeAt(index);
+  }
+
+  addAuthorControl() {
+      this.authors.push(this.fb.group({ firstName: null, lastName: null }));
+  }
+  removeAuthorControl(index){
+      this.authors.removeAt(index);
   }
 
   submitForm() {
     // filter empty values
     this.bookForm.value.images = this.bookForm.value.images.
     filter(thumbnail => thumbnail.url);
+    this.bookForm.value.authors = this.bookForm.value.authors.
+    filter(thumbnail => thumbnail.firstName || thumbnail.lastName);
 
     const book: Book = BookFactory.fromObject(this.bookForm.value);
 //deep copy  - did not work without??
     book.images = this.bookForm.value.images;
 
     //just copy the authors
-    book.authors = this.book.authors;
+    book.authors = this.bookForm.value.authors;
 
     if (this.isUpdatingBook) {
       this.bs.update(book).subscribe(res => {

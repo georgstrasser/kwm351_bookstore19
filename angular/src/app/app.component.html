@@ -3,7 +3,7 @@
   <a routerLink="/books" routerLinkActive="active" class="item">Bücher</a>
   <a *ngIf="isLoggedIn()" routerLink="/user/{{getCurrentUser()}}" routerLinkActive="active" class="item">Meine Bestellungen</a>
   <a *ngIf="isAdminUser()" routerLink="/orders" routerLinkActive="active" class="item">Administration</a>
-  <a *ngIf="isAdminUser()" routerLink="/admin" routerLinkActive="active" class="item">Buch anlegen</a>
+  <a *ngIf="isAdminUser()" routerLink="/admin" routerLinkActive="active" class="item">Bearbeiten & Anlegen</a>
   <a routerLink="/cart" routerLinkActive="active" class="item">Warenkorb</a>
   <a routerLink="/login" routerLinkActive="active" class="item">{{getLoginLabel()}}</a>
 </div>

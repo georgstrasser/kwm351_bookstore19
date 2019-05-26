@@ -21,4 +21,13 @@ export class BookValidators {
     console.log(check);
     return check ? null : {atLeastOneImage: {valid: false}};
   }
+
+  static atLeastOneAuthor(controlArray: FormArray):{[error:string]:any}{
+      const check = controlArray.controls.some((el)=>{
+          return el.value && el.value.firstName != "" && el.value.firstName != null
+          && el.value.lastName != "" && el.value.lastName != null ? true : false;
+      })
+      console.log(check);
+      return check ? null : {atLeastOneAuthor: {valid: false}};
+  }
 }

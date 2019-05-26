@@ -26,14 +26,35 @@
       <textarea formControlName="description" rows="3"></textarea>
     </div>
     <div class="field">
-      <label>Rating</label>
+      <label>Bewertung</label>
       <input type="number" formControlName="rating">
       <div *ngIf="errors.rating" class="ui negative message">{{ errors.rating }}</div>
     </div>
     <div class="field">
-      <label>Price</label>
+      <label>Preis</label>
       <input type="number" formControlName="price">
       <div *ngIf="errors.price" class="ui negative message">{{ errors.price }}</div>
+    </div>
+    <div class="field">
+      <label>Autoren</label>
+      <div formArrayName="authors">
+        <div class="fields" *ngFor="let control of authors?.controls; index as i; last as l" [formGroupName]="i">
+          <input type="hidden" name="id">
+          <div class="nine wide field">
+            <input formControlName="firstName" placeholder="Vorname">
+          </div>
+          <div class="six wide field">
+            <input formControlName="lastName" placeholder="Nachname">
+          </div>
+          <div class="one wide field" *ngIf="!l">
+            <button (click)="removeAuthorControl(i)" class="ui large button" type="button">-</button>
+          </div>
+          <div class="one wide field" *ngIf="l">
+            <button (click)="addAuthorControl()" class="ui large button" type="button">+</button>
+          </div>
+          <div *ngIf="errors.authors" class="ui negative message">{{ errors.authors }}</div>
+        </div>
+      </div>
     </div>
     <div class="field">
       <label>Bilder</label>

@@ -12,9 +12,9 @@ export const BookFormErrorMessages = [
   new ErrorMessage('isbn', 'maxlength', 'Eine ISBN darf höchstens 13 Zeichen haben'),
   new ErrorMessage('isbn', 'isbnFormat', 'Die ISBN muss aus 10 oder 13 Zeichen bestehen'),
   new ErrorMessage('published', 'required', 'Es muss ein Erscheinungsdatum angegeben werden'),
-  new ErrorMessage('authors', 'required', 'Es muss ein Autor angegeben werden'),
+  new ErrorMessage('authors', 'atLeastOneAuthor', 'Es muss ein Autor angegeben werden'),
   new ErrorMessage('rating', 'min', 'Bewertung kann nur positive Werte annehmen'),
   new ErrorMessage('rating', 'max', 'Maximal 10 Sterne erlaubt'),
   new ErrorMessage('images', 'atLeastOneImage', 'Es muss ein Bild (mit URL und Titel) angegeben werden'),
-  new ErrorMessage('price', 'min', 'Der Preis muss eine positive Zahl beinhalten')
+  new ErrorMessage('price', 'min', 'Der Preis muss mindestens 1€ betragen')
 ];
