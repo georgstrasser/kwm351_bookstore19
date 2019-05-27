@@ -33,6 +33,10 @@ Route::get('order/{id}', 'OrderController@findByOrderID');
 Route::get('user/{id}', 'OrderController@findOrdersByUserID');
 
 Route::group(['middleware' => ['api','cors','jwt.auth']], function () {
+    Route::post('order', 'OrderController@save');
+});
+
+Route::group(['middleware' => ['api','cors','jwt.auth']], function () {
     Route::post('book', 'BookController@save');
     Route::put('book/{isbn}', 'BookController@update');
     Route::delete('book/{isbn}', 'BookController@delete');

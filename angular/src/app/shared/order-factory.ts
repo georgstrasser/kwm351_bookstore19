@@ -10,7 +10,8 @@ export class OrderFactory {
             0,
             0,
             [],
-            [{id: 0, state: '', state_date: new Date(), comment: ''}]);
+            [{id: 0, state: '', state_date: new Date(), comment: ''}]
+        );
     }
 
     static fromObject(rawOrder: any): Order {
@@ -18,11 +19,11 @@ export class OrderFactory {
             rawOrder.id,
             typeof(rawOrder.order_date) === 'string' ?
                 new Date(rawOrder.order_date) : rawOrder.order_date,
-            rawBook.total,
-            rawBook.vat,
-            rawBook.user_id,
-            rawBook.books,
-            rawBook.states
+            rawOrder.total,
+            rawOrder.vat,
+            rawOrder.user_id,
+            rawOrder.books,
+            rawOrder.states
         );
     }
 }

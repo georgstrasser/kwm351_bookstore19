@@ -60,6 +60,13 @@
     <i class="backward icon"></i>
   </button>
 
+  <a *ngIf="quantity>1" class="ui tiny blue labeled icon button" (click)="decreaseQuantity();">
+    <i class="minus icon"></i>
+  </a>
+  <div>Menge: {{quantity }}</div>
+  <a class="ui tiny blue labeled icon button" (click)="increaseQuantity();">
+    <i class="plus icon"></i>
+  </a>
   <a class="ui tiny blue labeled icon button" routerLink="/cart" (click)="addBookToCart();">
     Zum Warenkorb hinzufügen
     <i class="cart icon"></i>

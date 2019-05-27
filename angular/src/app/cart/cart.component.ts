@@ -4,6 +4,9 @@ import {Book} from "../shared/book";
 import {AuthService} from "../shared/authentication.service";
 import {Router} from "@angular/router";
 import {OrderService} from "../shared/order.service";
+import {Order} from "../shared/order";
+import {OrderFactory} from "../shared/order-factory";
+import {State} from "../shared/state";
 
 @Component({
     selector: 'bs-cart',
@@ -47,6 +50,31 @@ export class CartComponent implements OnInit {
     buyBooks(){
         if(confirm("Wollen Sie diese Bücher kaufen? Der Warenkorb wird entleert.")){
             const userId = this.authService.getCurrentUserId();
+
+            let states = new Array(new State(
+                null,
+                'Initialisiert',
+                null,
+                'über cart.component.ts'
+            ));
+
+            let order = new Order(
+                null,
+                new Date(),
+                this.total.gross,
+                this.total.vat,
+                userId,
+                this.books,
+                states);
+
+            order = OrderFactory.fromObject(order);
+
+            console.log(order);
+
+            this.os.create(order).subscribe(res => {
+                this.router.navigate(['../user/'+userId]);
+            });
+
             this.clearStorage();
         }
     }

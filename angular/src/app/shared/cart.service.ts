@@ -4,6 +4,7 @@ import {Book} from "./book";
 import {BookFactory} from "./book-factory";
 import {AuthService} from "./authentication.service";
 import {HttpClient} from "@angular/common/http";
+import {assertNumber} from "@angular/core/src/render3/assert";
 
 @Injectable({
     providedIn: 'root'
@@ -14,6 +15,7 @@ export class CartService {
     private api= "http://bookstore19.s1610456033.student.kwmhgb.at/api";
 
     public books: Book[] = new Array();
+    public positions = new Array();
     public sum: number = 0;
     public vat = 10;
     public vatAmount = 0;
@@ -24,7 +26,17 @@ export class CartService {
         private http: HttpClient) {
     }
 
-    add(cartBook: Book){
+    add(cartBook: Book, quantity: number, price: number){
+        /*
+        let position = {
+            book: cartBook,
+            quantity: number,
+            price: number
+        };
+        */
+        this.positions.push(position);
+        console.log(this.positions);
+        //TODO work with quantity and price
         this.books.push(cartBook);
         localStorage.setItem(cartBook.isbn, JSON.stringify(cartBook));
 

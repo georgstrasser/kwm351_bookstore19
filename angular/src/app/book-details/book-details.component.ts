@@ -5,7 +5,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {BookFactory} from '../shared/book-factory';
 import {AuthService} from '../shared/authentication.service';
 import {CartService} from "../shared/cart.service";
-import {FormGroup} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'bs-book-details',
@@ -13,15 +13,17 @@ import {FormGroup} from "@angular/forms";
   styles: []
 })
 export class BookDetailsComponent implements OnInit {
-  addToCartForm: FormGroup;
   book: Book = BookFactory.empty();
+  quantity: number;
+  price: number;
 
   constructor(
     private bs : BookStoreService,
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
-    private cs: CartService
+    private cs: CartService,
+    private fb: FormBuilder
   ) { }
 
   ngOnInit() {
@@ -30,6 +32,9 @@ export class BookDetailsComponent implements OnInit {
       this.book=b; console.log(this.book);
     });
     console.log(this.book);
+
+    this.quantity = 1;
+
   }
 
   getRating(num: number){
@@ -45,8 +50,19 @@ export class BookDetailsComponent implements OnInit {
     }
   }
 
+  increaseQuantity(){
+    this.quantity++;
+  }
+
+  decreaseQuantity(){
+    if(this.quantity > 1){
+        this.quantity--;
+    }
+  }
+
   addBookToCart(){
-    this.cs.add(this.book);
+    this.price = this.book.price;
+    this.cs.add(this.book, this.quantity, this.price);
   }
 
 }
