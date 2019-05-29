@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {CartService} from "../shared/cart.service";
 import {Book} from "../shared/book";
+import {Position} from "../shared/position";
 import {AuthService} from "../shared/authentication.service";
 import {Router} from "@angular/router";
 import {OrderService} from "../shared/order.service";
@@ -15,7 +16,7 @@ import {State} from "../shared/state";
 })
 export class CartComponent implements OnInit {
 
-    public books: Book[];
+    public positions: Position[];
     public total: {
         sum: number,
         vat: number,
@@ -28,17 +29,17 @@ export class CartComponent implements OnInit {
         private  authService: AuthService,
         private router: Router,
         private os: OrderService) {
-            this.books = cs.books;
+            this.positions = cs.positions;
     }
 
     ngOnInit() {
-        this.cs.syncWithJSON().subscribe(res => this.books = res);
+        this.cs.syncWithJSON().subscribe(res => this.positions = res);
         this.cs.calculatePrices().subscribe(res => this.total = res);
     }
 
     clearStorage(){
         this.cs.clearStorage();
-        this.books = this.cs.books;
+        this.positions = this.cs.positions;
         this.total = {
             "sum": this.cs.sum,
             "vat": this.cs.vat,
@@ -58,13 +59,18 @@ export class CartComponent implements OnInit {
                 'über cart.component.ts'
             ));
 
+            let books : Book[] = new Array();
+            for(let position of this.positions){
+                books.push(position.book);
+            }
+
             let order = new Order(
                 null,
                 new Date(),
                 this.total.gross,
                 this.total.vat,
                 userId,
-                this.books,
+                books,
                 states);
 
             order = OrderFactory.fromObject(order);
@@ -82,7 +88,7 @@ export class CartComponent implements OnInit {
     deleteBookFromCart(isbn){
         this.cs.deleteItemById(isbn);
         this.cs.syncWithJSON();
-        this.books = this.cs.books;
+        this.positions = this.cs.positions;
         this.total = {
             "sum": this.cs.sum,
             "vat": this.cs.vat,

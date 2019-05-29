@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Observable, of, throwError} from "rxjs";
 import {Book} from "./book";
+import {Position} from "./position";
 import {BookFactory} from "./book-factory";
 import {AuthService} from "./authentication.service";
 import {HttpClient} from "@angular/common/http";
@@ -14,8 +15,7 @@ export class CartService {
 
     private api= "http://bookstore19.s1610456033.student.kwmhgb.at/api";
 
-    public books: Book[] = new Array();
-    public positions = new Array();
+    public positions: Position[] = new Array();
     public sum: number = 0;
     public vat = 10;
     public vatAmount = 0;
@@ -27,18 +27,12 @@ export class CartService {
     }
 
     add(cartBook: Book, quantity: number, price: number){
-        /*
-        let position = {
-            book: cartBook,
-            quantity: number,
-            price: number
-        };
-        */
+
+        let position = new Position(cartBook, quantity, price);
         this.positions.push(position);
         console.log(this.positions);
-        //TODO work with quantity and price
-        this.books.push(cartBook);
-        localStorage.setItem(cartBook.isbn, JSON.stringify(cartBook));
+
+        localStorage.setItem(position.book.isbn, JSON.stringify(position));
 
         for(let i = 0; i < localStorage.length; i++){
             let value = localStorage.getItem(localStorage.key(i));
@@ -51,8 +45,8 @@ export class CartService {
 
     calculatePrices(): Observable<{sum: number, vat: number, vatAmount: number, gross:number}>{
         this.sum = 0;
-        for(let book of this.books) {
-            this.sum += book.price;
+        for(let position of this.positions) {
+            this.sum += position.price
         }
         this.vatAmount = this.sum*this.vat/100;
         this.vatAmount = parseFloat(this.vatAmount.toFixed(2));
@@ -78,18 +72,29 @@ export class CartService {
         localStorage.removeItem(itemId);
     }
 
-    syncWithJSON(): Observable<Array<Book>> {
-        this.books = new Array();
+    syncWithJSON(): Observable<Array<Position>> {
+        this.positions = new Array();
         for(let i=0; i<localStorage.length; i++){
-            let currentBook = localStorage.getItem(localStorage.key(i));
-            if(currentBook[0] === "{"){
-                currentBook = JSON.parse(currentBook);
-                let book : Book = BookFactory.fromObject(currentBook);
-                this.books.push(book);
+            let currentPosition = localStorage.getItem(localStorage.key(i));
+            if(currentPosition[0] === "{"){
+                currentPosition = JSON.parse(currentPosition);
+                console.log("current position"+[i]);
+
+                //let book = JSON.parse(currentPosition.book);
+
+                //currentPosition = new Position(currentPosition['book'], currentPosition['quantity'], currentPosition['price']);
+                console.log(currentPosition);
+                /*
+                let book : Book = BookFactory.fromObject(currentPosition['book']);
+                console.log("sync with JSON:");
+                console.log(currentPosition['book']);
+                currentPosition = new Position(book, currentPosition['quantity'], currentPosition['price']);
+                this.positions.push(currentPosition);
+                */
             }
         }
         this.calculatePrices();
-        return of(this.books);
+        return of(this.positions);
     }
 
     private errorHandler(error: Error | any): Observable<any>{
