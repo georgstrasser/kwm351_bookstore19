@@ -21,7 +21,7 @@ export class BookDetailsComponent implements OnInit {
     private bs : BookStoreService,
     private route: ActivatedRoute,
     private router: Router,
-    private authService: AuthService,
+    public authService: AuthService,
     private cs: CartService,
     private fb: FormBuilder
   ) { }

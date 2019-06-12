@@ -26,7 +26,7 @@ export class CartComponent implements OnInit {
 
     constructor(
         private cs: CartService,
-        private  authService: AuthService,
+        public  authService: AuthService,
         private router: Router,
         private os: OrderService) {
             this.positions = cs.positions;
