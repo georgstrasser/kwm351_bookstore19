@@ -36,8 +36,17 @@ class OrderController extends Controller
         $request = $this->parseRequest($request);
         DB::beginTransaction();
         try{
-            $order = Order::create($request->all());
+            $order = new Order();
+            $order->order_date = new DateTime($request['order_date']);
+            $order->total = $request->total;
+            $order->vat = $request->vat;
+            $order->user_id = $request->totalPreTax;
+            $user = User::where('id', $request->user_id)->first();
+            $order->user()->associate($user);
             $order->save();
+
+            //$order = Order::create($request->all());
+            //$order->save();
             $receivedOrder = Order::where('user_id', $request['user_id'])->last();
             $orderId = $receivedOrder['id'];
             if(isset($request['states']) && is_array($request['states'])) {
@@ -46,10 +55,10 @@ class OrderController extends Controller
                     $order->states()->save($state);
                 }
             }
-            if(isset($request['books']) && is_array($request['books'])) {
-                foreach ($request['books'] as $b){
-                    $book = Book::where('isbn', $b['isbn'])->first();
-                    $order->books()->save($book);
+            if(isset($request['positions']) && is_array($request['positions'])) {
+                foreach ($request['positions'] as $p){
+                    $book = Book::where('isbn', $p['book']['isbn'])->first();
+                    $order->books()->attach($book, ['quantity' => $p['quantity'], 'price' => $p['price']]);
                 }
             }
             DB::commit();

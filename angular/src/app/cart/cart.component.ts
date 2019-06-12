@@ -59,18 +59,18 @@ export class CartComponent implements OnInit {
                 'über cart.component.ts'
             ));
 
-            let books : Book[] = new Array();
+            let positions : Position[] = new Array();
             for(let position of this.positions){
-                books.push(position.book);
+                positions.push(position);
             }
 
             let order = new Order(
                 null,
-                new Date('Y-m-d H:i:s'),
+                new Date(),
                 this.total.gross,
                 this.total.vat,
                 userId,
-                books,
+                positions,
                 states);
             console.log(order);
 

@@ -22,7 +22,7 @@ export class OrderFactory {
             rawOrder.total,
             rawOrder.vat,
             rawOrder.user_id,
-            rawOrder.books,
+            rawOrder.positions,
             rawOrder.states
         );
     }
