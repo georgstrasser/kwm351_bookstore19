@@ -70,6 +70,29 @@ class OrderController extends Controller
         return $request;
     }
 
+    public function addState(Request $request) : JsonResponse  {
+        $request = $this->parseRequest($request);
+        /*+
+        *  use a transaction for saving model including relations
+        * if one query fails, complete SQL statements will be rolled back
+        */
+        DB::beginTransaction();
+        try {
+            $state = State::create($request->all());
+
+            //TODO: insert state here
+
+            DB::commit();
+            // return a vaild http response
+            return response()->json($state, 201);
+        }
+        catch (\Exception $e) {
+            // rollback all queries
+            DB::rollBack();
+            return response()->json("saving book failed: " . $e->getMessage(), 420);
+        }
+    }
+
     private function parseRequest(Request $request) : Request {
         $date = new \DateTime($request->published);
         $request['published'] = $date;

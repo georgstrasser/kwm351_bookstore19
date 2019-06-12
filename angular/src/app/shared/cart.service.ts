@@ -7,6 +7,9 @@ import {AuthService} from "./authentication.service";
 import {HttpClient} from "@angular/common/http";
 import {assertNumber} from "@angular/core/src/render3/assert";
 
+// @injectable marks the opportunity, that this service can be injected in
+// multiple components without having to deal with the constructor of the service
+// angular takes care of creating the service
 @Injectable({
     providedIn: 'root'
 })

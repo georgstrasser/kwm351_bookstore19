@@ -23,20 +23,20 @@ Route::get('book/id/{id}', 'BookController@findBookByID');
 Route::get('book/checkisbn/{isbn}', 'BookController@checkISBN');
 Route::get('book/search/{searchTerm}', 'BookController@findBySearchTerm');
 
-Route::get('users', 'UserController@index');
-Route::get('user/id/{id}', 'UserController@findUserById');
-
 Route::post('auth/login', 'Auth\ApiAuthController@login');
-
-Route::get('orders', 'OrderController@index');
-Route::get('order/{id}', 'OrderController@findByOrderID');
-Route::get('user/{id}', 'OrderController@findOrdersByUserID');
-
-Route::post('order', 'OrderController@save');
 
 Route::group(['middleware' => ['api','cors','jwt.auth']], function () {
     Route::post('book', 'BookController@save');
     Route::put('book/{isbn}', 'BookController@update');
     Route::delete('book/{isbn}', 'BookController@delete');
     Route::post('auth/logout', 'Auth\ApiAuthController@logout');
+
+    Route::get('orders', 'OrderController@index');
+    Route::get('order/{id}', 'OrderController@findByOrderID');
+    Route::get('user/{id}', 'OrderController@findOrdersByUserID');
+    Route::post('order', 'OrderController@save');
+    Route::post('status', 'OrderController@addState');
+
+    Route::get('users', 'UserController@index');
+    Route::get('user/id/{id}', 'UserController@findUserById');
 });

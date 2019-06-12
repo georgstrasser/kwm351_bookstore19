@@ -132,14 +132,13 @@ class BookController extends Controller
                 }
                 //update authors
 
-                $ids = [];
+                $book->authors()->delete();
                 if (isset($request['authors']) && is_array($request['authors'])) {
                     foreach ($request['authors'] as $auth) {
-                        array_push($ids,$auth['id']);
+                        $author = Author::firstOrNew(['firstName' => $auth['firstName'], 'lastName' => $auth['lastName']]);
+                        $book->authors()->save($author);
                     }
                 }
-                $book->authors()->sync($ids);
-                $book->save();
 
             }
             DB::commit();

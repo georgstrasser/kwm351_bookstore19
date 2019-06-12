@@ -10,6 +10,7 @@ import {catchError, retry} from 'rxjs/operators';
 export class BookStoreService {
   private api = "http://bookstore19.s1610456033.student.kwmhgb.at/api";
 
+  //enables REST calls
   constructor(private http: HttpClient) {
   }
 
