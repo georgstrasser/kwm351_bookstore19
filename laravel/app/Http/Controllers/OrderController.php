@@ -35,8 +35,6 @@ class OrderController extends Controller
     public function save(Request $request) : JsonResponse {
         $request = $this->parseRequest($request);
         DB::beginTransaction();
-        echo $request;
-        return response()->json($request, 201);
         try{
             $order = Order::create($request->all());
             $order->save();
