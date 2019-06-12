@@ -15,14 +15,14 @@ class OrdersTableSeeder extends Seeder
         $order1 = new \App\Order;
         $order1->order_date = new DateTime();
         $order1->vat = 10;
-        $order1->total = (19.50 + 12 + 14)*1.1;
+        $order1->total = (3*20)*1.1;
 
         $user1 = App\User::all()->first();
         $order1->user()->associate($user1);
         $order1->save();
 
         $books = App\Book::all()->pluck("id");
-        $order1->books()->sync($books);
+        $order1->books()->attach($books, ['quantity' => 2, 'price' => 20]);;
         $order1->save();
 
         $state1 = new \App\State;
@@ -41,14 +41,14 @@ class OrdersTableSeeder extends Seeder
         $order2 = new \App\Order;
         $order2->order_date = new DateTime();
         $order2->vat = 10;
-        $order2->total = (19.50*1.1);
+        $order2->total = (33*1.1);
 
         $user2 = App\User::all()->last();
         $order2->user()->associate($user2);
         $order2->save();
 
         $book2 = App\Book::all()->first();
-        $order2->books()->sync($book2);
+        $order2->books()->attach($book2, ['quantity' => 3, 'price' => 33]);
         $order2->save();
 
         $state3 = new \App\State;
@@ -62,14 +62,14 @@ class OrdersTableSeeder extends Seeder
         $order3 = new \App\Order;
         $order3->order_date = new DateTime();
         $order3->vat = 10;
-        $order3->total = (12*1.1);
+        $order3->total = (10*1.1);
 
         $user3 = App\User::all()->last();
         $order3->user()->associate($user3);
         $order3->save();
 
         $book3 = App\Book::all()->last();
-        $order3->books()->sync($book3);
+        $order3->books()->attach($book3, ['quantity' => 1, 'price' => 10]);
         $order3->save();
 
         $state4 = new \App\State;

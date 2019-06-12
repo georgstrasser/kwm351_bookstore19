@@ -21,8 +21,8 @@
       <td data-label="ISBN">{{ position.book.isbn }}</td>
       <td data-label="Titel">{{ position.book.title }}</td>
       <td data-label="Menge">{{ position.quantity }} STK</td> <!-- Standardwert, konnte funktional nicht umgesetzt werden -->
-      <td class="right aligned" data-label="Preis">{{ position.price }} EUR</td>
-      <td class="center aligned"><button class="ui tiny red button rounded" (click)="deleteBookFromCart(book.isbn);"><i class="remove icon"></i></button></td>
+      <td class="right aligned" data-label="Preis">{{ position.price*position.quantity }} EUR</td>
+      <td class="center aligned"><button class="ui tiny red button rounded" (click)="deleteBookFromCart(position.book.isbn);"><i class="remove icon"></i></button></td>
     </tr>
     <tr>
       <td></td>

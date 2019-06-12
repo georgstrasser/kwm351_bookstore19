@@ -46,7 +46,7 @@ export class CartService {
     calculatePrices(): Observable<{sum: number, vat: number, vatAmount: number, gross:number}>{
         this.sum = 0;
         for(let position of this.positions) {
-            this.sum += position.price
+            this.sum += position.price*position.quantity
         }
         this.vatAmount = this.sum*this.vat/100;
         this.vatAmount = parseFloat(this.vatAmount.toFixed(2));
@@ -88,9 +88,9 @@ export class CartService {
                 let book : Book = BookFactory.fromObject(currentPosition['book']);
                 console.log("sync with JSON:");
                 console.log(currentPosition['book']);
-                currentPosition = new Position(book, currentPosition['quantity'], currentPosition['price']);
-                this.positions.push(currentPosition);
                 */
+                let newPosition = new Position(currentPosition['book'], currentPosition['quantity'], currentPosition['price']);
+                this.positions.push(newPosition);
             }
         }
         this.calculatePrices();
