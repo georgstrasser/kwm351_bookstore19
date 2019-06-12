@@ -59,18 +59,28 @@
     Zurück zur Bücherliste
     <i class="backward icon"></i>
   </button>
-
-  <a *ngIf="quantity>1" class="ui tiny blue labeled icon button" (click)="decreaseQuantity();">
+  <br/>
+  <br/>
+  <div>
+    <span>Menge: </span>
+  <a *ngIf="quantity<=1" class="ui tiny grey labeled icon">
     <i class="minus icon"></i>
   </a>
-  <div>Menge: {{quantity }}</div>
-  <a class="ui tiny blue labeled icon button" (click)="increaseQuantity();">
+  <a *ngIf="quantity>1" class="ui tiny blue labeled icon" (click)="decreaseQuantity();">
+    <i class="minus icon"></i>
+  </a>
+  <span>{{quantity }}</span>
+  <a class="ui tiny blue labeled icon" (click)="increaseQuantity();">
     <i class="plus icon"></i>
   </a>
+  </div>
+  <br/>
   <a class="ui tiny blue labeled icon button" routerLink="/cart" (click)="addBookToCart();">
     Zum Warenkorb hinzufügen
     <i class="cart icon"></i>
   </a>
+  <br/>
+  <br/>
 
   <a *ngIf="authService.isAdminUser()" class="ui tiny yellow labeled icon button"
      [routerLink]="['../../admin',book?.isbn]">
@@ -81,5 +91,4 @@
           (click)="removeBook()">
     <i class="remove icon"></i> Buch löschen
   </button>
-
 </div>

@@ -32,9 +32,7 @@ Route::get('orders', 'OrderController@index');
 Route::get('order/{id}', 'OrderController@findByOrderID');
 Route::get('user/{id}', 'OrderController@findOrdersByUserID');
 
-Route::group(['middleware' => ['api','cors','jwt.auth']], function () {
-    Route::post('order', 'OrderController@save');
-});
+Route::post('order', 'OrderController@save');
 
 Route::group(['middleware' => ['api','cors','jwt.auth']], function () {
     Route::post('book', 'BookController@save');

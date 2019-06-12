@@ -35,10 +35,12 @@ class OrderController extends Controller
     public function save(Request $request) : JsonResponse {
         $request = $this->parseRequest($request);
         DB::beginTransaction();
+        echo $request;
+        return response()->json($request, 201);
         try{
             $order = Order::create($request->all());
             $order->save();
-            $receivedOrder = Order::where('user_id', $request['user_id'])->first();
+            $receivedOrder = Order::where('user_id', $request['user_id'])->last();
             $orderId = $receivedOrder['id'];
             if(isset($request['states']) && is_array($request['states'])) {
                 foreach ($request['states'] as $s) {

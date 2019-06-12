@@ -66,16 +66,15 @@ export class CartComponent implements OnInit {
 
             let order = new Order(
                 null,
-                new Date(),
+                new Date('Y-m-d H:i:s'),
                 this.total.gross,
                 this.total.vat,
                 userId,
                 books,
                 states);
+            console.log(order);
 
             order = OrderFactory.fromObject(order);
-
-            console.log(order);
 
             this.os.create(order).subscribe(res => {
                 this.router.navigate(['../user/'+userId]);
