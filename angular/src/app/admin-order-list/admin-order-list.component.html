@@ -9,8 +9,7 @@
                     <tr>
                         <th>Bestellnummer: {{ order?.id }}</th>
                         <th>Benutzer-ID: {{ order?.user_id }}</th>
-                        <th></th>
-                        <th></th>
+
                         <th>Bestelldatum: {{ order?.order_date }}</th>
                     </tr>
                 </thead>
@@ -29,7 +28,7 @@
                         <td data-label="ISBN">{{ book.isbn }}</td>
                         <td data-label="Titel">{{ book.title }}</td>
                         <td data-label="Menge">{{ book.pivot.quantity }} STK</td>
-                        <td class="right aligned" data-label="Preis">{{ book.pivot.price }} EUR</td>
+                        <td class="right aligned" data-label="Preis">{{ book.pivot.price*book.pivot.quantity }} EUR</td>
                     </tr>
                     <tr>
                         <td></td>
@@ -67,6 +66,20 @@
                     </tr>
                 </tbody>
             </table>
+            <div>
+                <a *ngIf="!isPaid(order.states) && !isCancelled(order.states)" class="ui tiny blue labeled icon button" (click)="statePaid(order.id);">
+                    Bezahlt
+                    <i class="money icon"></i>
+                </a>
+                <a *ngIf="!isShipped(order.states) && !isCancelled(order.states)" class="ui tiny blue labeled icon button" (click)="stateShipped(order.id);">
+                    Versendet
+                    <i class="truck icon"></i>
+                </a>
+                <a *ngIf="!isCancelled(order.states)" class="ui tiny blue labeled icon button" (click)="stateCancelled(order.id);">
+                    Storniert
+                    <i class="trash icon"></i>
+                </a>
+            </div>
 
         </div>
     </div>

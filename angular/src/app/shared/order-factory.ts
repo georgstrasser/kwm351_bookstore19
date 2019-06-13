@@ -10,7 +10,7 @@ export class OrderFactory {
             0,
             0,
             [],
-            [{id: 0, state: '', state_date: new Date(), comment: ''}]
+            [{id: 0, state: '', state_date: new Date(), comment: '', order_id: 0}]
         );
     }
 

@@ -70,9 +70,6 @@ export class BookFormComponent implements OnInit {
 
   buildThumbnailsArray() {
     console.log(this.book.images);
-    //if(this.book.images.length == 0){ //if new book had no images -> but no in edit mode
-    //  this.book.images.push(new Image(0,'',''))
-    //}
 
     this.images = this.fb.array(
       this.book.images.map(

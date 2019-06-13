@@ -27,7 +27,7 @@
           <td data-label="ISBN">{{ book.isbn }}</td>
           <td data-label="Titel">{{ book.title }}</td>
           <td data-label="Menge">{{ book.pivot.quantity }} STK</td>
-          <td class="right aligned" data-label="Preis">{{ book.pivot.price }} EUR</td>
+          <td class="right aligned" data-label="Preis">{{ book.pivot.price*book.pivot.quantity }} EUR</td>
         </tr>
         <tr>
           <td></td>
@@ -65,6 +65,12 @@
         </tr>
         </tbody>
       </table>
+      <div>
+        <a *ngIf="!isShipped(order.states) && !isCancelled(order.states)" class="ui tiny blue labeled icon button" (click)="statePaid(order.id);">
+          Stornieren
+          <i class="money icon"></i>
+        </a>
+      </div>
 
     </div>
   </div>

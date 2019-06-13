@@ -35,7 +35,7 @@ Route::group(['middleware' => ['api','cors','jwt.auth']], function () {
     Route::get('order/{id}', 'OrderController@findByOrderID');
     Route::get('user/{id}', 'OrderController@findOrdersByUserID');
     Route::post('order', 'OrderController@save');
-    Route::post('status', 'OrderController@addState');
+    Route::post('state', 'OrderController@addState');
 
     Route::get('users', 'UserController@index');
     Route::get('user/id/{id}', 'UserController@findUserById');

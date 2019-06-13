@@ -40,6 +40,12 @@ export class OrderService {
         pipe(retry(3)).pipe(catchError(this.errorHandler));
     }
 
+    addState(state:State):Observable<any> {
+        console.log(state);
+        return this.http.post(`${this.api}/state`,state).
+        pipe(retry(3)).pipe(catchError(this.errorHandler));
+    }
+
     remove(id:number):Observable<any> {
         return this.http.delete(`${this.api}/order/${id}`).
         pipe(retry(3)).pipe(catchError(this.errorHandler));
