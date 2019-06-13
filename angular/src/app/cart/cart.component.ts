@@ -38,16 +38,14 @@ export class CartComponent implements OnInit {
     }
 
     clearStorage(){
-        if(confirm("Wollen Sie den Warenkorb wirklich leeren?")){
-            this.cs.clearStorage();
-            this.positions = this.cs.positions;
-            this.total = {
-                "sum": this.cs.sum,
-                "vat": this.cs.vat,
-                "vatAmount": this.cs.vatAmount,
-                "gross": this.cs.gross
-            };
-        }
+        this.cs.clearStorage();
+        this.positions = this.cs.positions;
+        this.total = {
+            "sum": this.cs.sum,
+            "vat": this.cs.vat,
+            "vatAmount": this.cs.vatAmount,
+            "gross": this.cs.gross
+        };
     }
 
     buyBooks(){

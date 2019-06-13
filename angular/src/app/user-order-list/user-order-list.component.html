@@ -66,7 +66,7 @@
         </tbody>
       </table>
       <div>
-        <a *ngIf="!isShipped(order.states) && !isCancelled(order.states)" class="ui tiny blue labeled icon button" (click)="statePaid(order.id);">
+        <a *ngIf="!isShipped(order.states) && !isCancelled(order.states)" class="ui tiny blue labeled icon button" (click)="stateCancelled(order.id);">
           Stornieren
           <i class="money icon"></i>
         </a>

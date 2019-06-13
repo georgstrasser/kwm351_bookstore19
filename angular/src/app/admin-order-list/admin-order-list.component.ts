@@ -44,7 +44,7 @@ export class AdminOrderListComponent implements OnInit {
             console.log(state);
 
             this.os.addState(state).subscribe(res => {
-                this.router.navigate(['../orders']);
+                this.router.navigate(['../books']);
             });
 
         }
